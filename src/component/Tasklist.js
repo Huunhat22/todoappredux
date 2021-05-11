@@ -2,7 +2,14 @@ import React ,{Component} from 'react';
 import Taskitem from './Taskitem';
 
 class Tasklist extends Component{
+
     render(){
+
+        var {tasksProps} = this.props; // var tasks = this.props.tasks
+        var Elements = tasksProps.map((task, index) => {
+            return <Taskitem key = {task.id} index = {index} task = {task}/>
+        });
+
         return(
             <div className = "row">  
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -30,7 +37,7 @@ class Tasklist extends Component{
                                 </td>
                                 <td></td>
                             </tr>
-                            <Taskitem></Taskitem>
+                           {Elements}
                         </tbody>
                     </table>
                 </div>

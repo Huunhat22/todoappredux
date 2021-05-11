@@ -2,13 +2,15 @@ import React ,{Component} from 'react';
 
 class Taskitem extends Component{
     render(){
+
+        var {task,index} = this.props;
         return(
             <tr>
-                <td>1</td>
-                <td>Learning program language React Js</td>
+                <td>{index + 1}</td>
+                <td>{task.name}</td>
                 <td className="text-center">
-                    <span className="label label-success">
-                        Active
+                    <span className={ task.status === true ? 'badge bg-success' : 'badge bg-danger'}>
+                       {task.status === true ? 'Kích Hoạt' : 'Ẩn'}
                     </span>
                 </td>
                 <td className="text-center">
