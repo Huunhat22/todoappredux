@@ -8,7 +8,8 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-        tasks : [] //id:bắt buộc và không trùng, name, status
+        tasks : [], //id:bắt buộc và không trùng, name, status
+        isDisplayForm: false
     }
   }
 
@@ -65,9 +66,24 @@ class App extends Component{
            + this.createRamdom() + '-' + this.createRamdom() + '-' + this.createRamdom() + this.createRamdom();
   }
 
+  //function onToggleForm
+  onToggleForm = () =>{
+    this.setState({
+      isDisplayForm : true
+    })
+  }
+
+  //function onCloseForm
+  onCloseFrom =()=>{
+    this.setState({
+      isDisplayForm : false
+    })
+  }
+
   render(){
 
-    var {tasks} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks
+    var {tasks,isDisplayForm} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks
+    var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} /> : ''; // chỗ này xử lý cho 2 thao tác, 
 
     return (
       <div className="container">
@@ -76,13 +92,13 @@ class App extends Component{
         </div>
         <div className= "row mt-5">
           {/* Form create new work */}
-          <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-            <Taskform></Taskform>
+          <div className={isDisplayForm ? '"col-xs-4 col-sm-4 col-md-4 col-lg-4"' : ''}>
+            {elementTaskform}
           </div>
           
           {/* Action Form */}
-          <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-            <button className="btn btn-primary mb-3 mr-3">
+          <div className={isDisplayForm ? '"col-xs-8 col-sm-8 col-md-8 col-lg-8"' : '"col-xs-12 col-sm-12 col-md-12 col-lg-12"'}>
+            <button className="btn btn-primary mb-3 mr-3" onClick = {this.onToggleForm}>
               <i className="fas fa-plus"></i> 
               Add New Work
             </button> &nbsp;
