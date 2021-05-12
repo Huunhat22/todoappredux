@@ -1,0 +1,147 @@
+{
+    window.zoomLevel -1,
+    editor.tokenColorCustomizations {
+        [Default Dark+] {
+            textMateRules [
+                {
+                    scope [
+                        entity.other.attribute-name,
+                        entity.name.function,
+                        support.function,
+                        support.function.css,
+                        support.function.transform.css,
+                        entity.other.attribute-name.jsx,
+                        entity.other.attribute-name.html
+                      ],
+                      settings {
+                        foreground #3bdf56,
+                        fontStyle 
+                      }
+                },
+                {
+                  scope [
+                    variable.graphql,
+                    string,
+                    punctuation.definition.string.begin,
+                    punctuation.definition.string.end
+                  ],
+                  settings {
+                    foreground #E6DB74
+                  }
+                },
+                {
+                  scope [
+                
+                    variable.other.constant,
+                    support.variable,
+                    constant,
+                    support.type.property-name.media.css,
+                    meta.property-values.css,
+                    support.constant,
+                  ],
+                  settings {
+                    foreground #7864dd
+                  }
+                },
+                {
+                    scope[keyword.control.module.js,entity.name.tag,keyword.control.flow.js,keyword.operator.logical.js],
+                    settings {
+                        foreground #fc36c4,
+                        fontStyle 
+                    }
+                },
+                {
+                    scope[entity.name.type.class],
+                    settings {
+                        foreground #3bdf56,
+                        fontStyle underline
+                    }
+
+                },
+                {
+                    scope[   
+                                meta.function.arrow.js
+                            ],
+                    settings {
+                        foreground #66D9EF,
+                        fontStyle 
+                    }
+                },
+                {
+                    scope[   
+                            variable.language.this.js,
+                                variable.parameter,
+                            
+                           
+                         ],
+                    settings {
+                        foreground #FD971F,
+                        fontStyle italic
+                    }
+                },
+                {
+                    scope[
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             meta.function.method.js,
+                             meta.class.body.js,
+                             source.js,
+                                 entity.name.tag,
+                        ],
+                    settings {
+                        foreground #ce90dd ,
+                        fontStyle 
+                    }
+                },
+                {
+                    scope[
+                            meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             JSXNested,
+                             JSXAttrs,
+                             meta.tag.jsx,
+                             meta.function.method.js,
+                             meta.class.body.js,
+                             source.js,
+                                 entity.name.tag,
+                        ],
+                    settings {
+                        foreground #fff ,
+                        fontStyle 
+                    }
+                }
+            ]
+        }
+    }
+}
