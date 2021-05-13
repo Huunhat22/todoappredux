@@ -23,36 +23,36 @@ class App extends Component{
   }
 
   //tạo function onGenerateData
-  onGenerateData = ()=>{
-    var tasks = [
-      {
-        id : this.generateID(),
-        name : "Học lập trình",
-        status : true
+  // onGenerateData = ()=>{
+  //   var tasks = [
+  //     {
+  //       id : this.generateID(),
+  //       Namework : "Học lập trình",
+  //       Status : true
 
-      },
-      {
-        id : this.generateID(),
-        name : "Đi nhà sách",
-        status : false
+  //     },
+  //     {
+  //       id : this.generateID(),
+  //       Namework : "Đi nhà sách",
+  //       status : false
 
-      },
-      {
-        id : this.generateID(),
-        name : "Chạy bộ công viên",
-        status : false
+  //     },
+  //     {
+  //       id : this.generateID(),
+  //       Namework : "Chạy bộ công viên",
+  //       Status : false
 
-      },
-    ];
+  //     },
+  //   ];
 
-    //set state
-    this.setState({
-      tasks : tasks
-    });
+  //   //set state
+  //   this.setState({
+  //     tasks : tasks
+  //   });
     
-    localStorage.setItem('tasks',JSON.stringify(tasks));
+  //   localStorage.setItem('tasks',JSON.stringify(tasks));
 
-  }
+  // }
 
 
   //tạo chuỗi random cho ID
@@ -80,10 +80,51 @@ class App extends Component{
     })
   }
 
+  //Function onSubmitForm
+  onSubmitForm = (data) =>{
+    var {tasks} = this.state;
+    data.id = this.generateID();
+    tasks.push(data);
+    this.setState({
+      tasks : tasks
+    });
+
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+    // console.log(data);
+  }
+
+  //Function onUpdateStatus
+  onUpdateStatus =(id) => {
+    
+    var {tasks} = this.state;
+    var index = this.findIndex(id);
+    console.log(index);
+    if (index !== -1) {
+      tasks[index].Status = !tasks[index].Status;
+      this.setState({
+        tasks : tasks
+      });
+      localStorage.setItem('tasks',JSON.stringify(tasks));
+    }
+    
+  }
+
+  //tìm ra index của item muốn thay đổi
+  findIndex =(id)=>{
+    var {tasks} = this.state;
+    var result = -1;
+    tasks.forEach((task,index) =>{
+      if (task.id === id) {
+          result = index;
+      }
+    });
+    return result;
+  }
+
   render(){
 
     var {tasks,isDisplayForm} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks
-    var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} /> : ''; // chỗ này xử lý cho 2 thao tác, 
+    var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} reciveSubmit = {this.onSubmitForm} /> : ''; // chỗ này xử lý cho 2 thao tác, 
 
     return (
       <div className="container">
@@ -102,11 +143,11 @@ class App extends Component{
               <i className="fas fa-plus"></i> 
               Add New Work
             </button> &nbsp;
-            <button className="btn btn-danger mb-3" onClick={this.onGenerateData}>
+            {/* <button className="btn btn-danger mb-3" onClick={this.onGenerateData}>
               Generate Data
-            </button>
+            </button> */}
             <Taskcontrol></Taskcontrol>
-            <Tasklist tasksProps = {tasks}></Tasklist>
+            <Tasklist tasksProps = {tasks} reciveID = {this.onUpdateStatus}></Tasklist>
           </div> 
         </div>
       </div>

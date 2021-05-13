@@ -21,6 +21,10 @@ class Taskform extends Component{
         var target = event.target;
         var name = target.name;
         var value = target.value;
+        if (name === 'Status') {
+            value = target.value === 'true' ? true : false;
+        }
+
         this.setState({
             [name] : value
         })
@@ -28,7 +32,19 @@ class Taskform extends Component{
 
     onSubmit = (event) =>{
         event.preventDefault();
-        console.log(this.state);
+        this.props.reciveSubmit(this.state);
+
+        //sau khi submit thi se goi toi 2 function nay
+        this.onClear();
+        this.onCloseForm();
+        // console.log(this.state);
+    }
+
+    onClear=() =>{
+        this.setState({
+            Namework : '',
+            Status : false
+        })
     }
 
     render(){
@@ -54,7 +70,7 @@ class Taskform extends Component{
                         </div>
                         <div className="d-flex justify-content-evenly mb-3">
                             <button className="btn btn-outline-success" type="submit">Save</button>
-                            <button className="btn btn-outline-danger">Delete</button>
+                            <button className="btn btn-outline-danger" type="button" onClick={this.onClear}>Delete</button>
                         </div>
                     </form>
                 </div>
