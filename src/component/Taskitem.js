@@ -9,10 +9,22 @@ class Taskitem extends Component{
     }
 
     //function onDeleteItem
+<<<<<<< HEAD
     onDeleteItem =() =>{
         this.props.onDeleteItem(this.props.task.id);
     }
 
+=======
+    onDeleteItem =()=>{
+        this.props.onDeleteItem(this.props.task.id);
+    }
+
+    //function onUpdateItem
+    onUpdateItem =()=>{
+        this.props.onUpdateItem(this.props.task.id);
+    }
+
+>>>>>>> 1cdfb928f303fc133a2a553ddcf8fab2bef9487c
     render(){
 
         var {task,index} = this.props;
@@ -26,7 +38,7 @@ class Taskitem extends Component{
                     </span>
                 </td>
                 <td className="text-center">
-                    <button type="button" className="btn btn-warning">
+                    <button type="button" className="btn btn-warning" onClick = {this.onUpdateItem}>
                         <span className="fas fa-pencil-alt mr-5"></span> Edit
                     </button>
                     &nbsp;

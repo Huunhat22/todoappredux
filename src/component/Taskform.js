@@ -6,9 +6,47 @@ class Taskform extends Component{
     constructor(props){
         super(props);
         this.state = {
+            id :'',
             Namework : '',
             Status : false
         }
+    }
+
+    //tạo 1 component lycrical
+    componentDidMount(){
+        if (this.props.task) {
+            this.setState({
+                id : this.props.task.id,
+                Namework : this.props.task.Namework,
+                Status : this.props.task.Status
+            })
+        }
+    }
+
+    //hàm này thực hiện liên tục mỗi khi có props thay đổi, state là giá trị đang có , props là giá trị đang bị thay đổi
+    static getDerivedStateFromProps(props, state){
+        if (props.task) {
+            if(props.task.id !== state.id){
+                return {
+                    id : props.task.id,
+                    Namework : props.task.Namework,
+                    Status : props.task.Status
+                }
+            }
+
+        }
+        // else{
+        //     if (state.task) {
+        //         console.log('vào đây');
+        //         return {
+        //             id : '',
+        //             Namework : '',
+        //             Status : false
+        //         }
+        //     }
+        // }
+        // Return null to indicate no change to state.
+        return null;
     }
 
     //function onCloseForm
@@ -30,6 +68,8 @@ class Taskform extends Component{
         })
     }
 
+
+    //function onSubmit mục đích để truyền 1 props từ component con sang component cha.
     onSubmit = (event) =>{
         event.preventDefault();
         this.props.reciveSubmit(this.state);
@@ -48,11 +88,12 @@ class Taskform extends Component{
     }
 
     render(){
+        var {id} = this.state;
         return(
             /* Col to insert todo */
             <div className="card">
                 <div className="d-flex justify-content-between card-header">
-                    <h5 className="text-center">Add New Work</h5>
+                    <h5 className="text-center">{id === '' ? 'Add New Work': 'Update This Work'}</h5>
                     <span onClick={this.onCloseForm}><i className="fas fa-times-circle"></i></span>
                 </div>
                 <div className="card-body">
