@@ -9,10 +9,12 @@ class App extends Component{
     super(props);
     this.state = {
         tasks : [], //id:bắt buộc và không trùng, name, status
-        isDisplayForm: false
+        isDisplayForm: false,
+        taskEditing : null
     }
   }
 
+  // hàm này được load 1 lần
   componentDidMount(){
     if (localStorage && localStorage.getItem('tasks')) {
         var tasks = JSON.parse(localStorage.getItem('tasks'));
@@ -21,6 +23,7 @@ class App extends Component{
         })
     }
   }
+
 
   //tạo function onGenerateData
   // onGenerateData = ()=>{
@@ -68,9 +71,26 @@ class App extends Component{
 
   //function onToggleForm
   onToggleForm = () =>{
+
+    //trường hợp, IF click vào sửa (chưa sửa)-> nhấn vào thêm
+    if (this.state.isDisplayForm && this.state.taskEditing !== null) {
+      this.setState({
+        isDisplayForm : true,
+        taskEditing : null
+      });
+    } else {    //trường hợp ngược lại -> khi nhấn vào thêm task
+      this.setState({
+        isDisplayForm : !this.state.isDisplayForm,
+        taskEditing : null    //trường hợp này trả các giá trị trong form về null khi click thêm task
+      });
+    }
+    
+  }
+
+  onShowForm = ()=>{
     this.setState({
       isDisplayForm : true
-    })
+    });
   }
 
   //function onCloseForm
@@ -80,11 +100,18 @@ class App extends Component{
     })
   }
 
-  //Function onSubmitForm
+  //Function onSubmitForm => xử lý sự kiện khi thêm mới 1 công việc
   onSubmitForm = (data) =>{
     var {tasks} = this.state;
-    data.id = this.generateID();
-    tasks.push(data);
+    if (data.id === '') {
+      data.id = this.generateID();
+      tasks.push(data);
+    }
+    else{
+      var index = this.findIndex(data.id);
+      tasks[index] = data;
+    }
+    
     this.setState({
       tasks : tasks
     });
@@ -98,7 +125,7 @@ class App extends Component{
     
     var {tasks} = this.state;
     var index = this.findIndex(id);
-    console.log(index);
+    // console.log(index);
     if (index !== -1) {
       tasks[index].Status = !tasks[index].Status;
       this.setState({
@@ -107,6 +134,38 @@ class App extends Component{
       localStorage.setItem('tasks',JSON.stringify(tasks));
     }
     
+  }
+
+  //function onDelete Item
+  onDelete = (id)=>{
+    var {tasks} = this.state;
+    var index = this.findIndex(id);
+    if (index !== -1) {
+      tasks.splice(index,1);
+      this.setState({
+        tasks : tasks
+      });
+    }
+    this.onCloseFrom();
+    // lưu vào lại localStorage
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+  }
+
+  //function onEdit
+  onUpdate = (id)=>{
+    //tìm và lấy ra được item cần chỉnh sửa
+    var {tasks} = this.state;
+    var index = this.findIndex(id);
+
+    //gán item tìm được vào state Editing
+    var taskEditing = tasks[index];
+    this.setState({
+      taskEditing : taskEditing
+    })
+
+    this.onShowForm();
+    // console.log(id);
+
   }
 
   //tìm ra index của item muốn thay đổi
@@ -123,8 +182,12 @@ class App extends Component{
 
   render(){
 
-    var {tasks,isDisplayForm} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks
-    var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} reciveSubmit = {this.onSubmitForm} /> : ''; // chỗ này xử lý cho 2 thao tác, 
+    var {tasks,isDisplayForm,taskEditing} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks
+
+    //xử lý : nếu có isDisplayForm == true thì sẽ hiển thị component Taskform , ngược lại thì không
+    var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} // xử lý sự kiện onCloseForm
+                                                    reciveSubmit = {this.onSubmitForm} // xử lý sự kiện onSubmitForm
+                                                    task = {taskEditing} /> : ''; 
 
     return (
       <div className="container">
@@ -147,7 +210,12 @@ class App extends Component{
               Generate Data
             </button> */}
             <Taskcontrol></Taskcontrol>
-            <Tasklist tasksProps = {tasks} reciveID = {this.onUpdateStatus}></Tasklist>
+            <Tasklist tasksProps = {tasks}
+                      reciveID = {this.onUpdateStatus}
+                      reciveDeleteID = {this.onDelete}
+                      reciveUpdatetID = {this.onUpdate}
+            >
+            </Tasklist>
           </div> 
         </div>
       </div>
