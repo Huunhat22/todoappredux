@@ -9,22 +9,17 @@ class Taskitem extends Component{
     }
 
     //function onDeleteItem
-<<<<<<< HEAD
+
     onDeleteItem =() =>{
         this.props.onDeleteItem(this.props.task.id);
     }
-
-=======
-    onDeleteItem =()=>{
-        this.props.onDeleteItem(this.props.task.id);
-    }
-
+    
     //function onUpdateItem
     onUpdateItem =()=>{
         this.props.onUpdateItem(this.props.task.id);
     }
 
->>>>>>> 1cdfb928f303fc133a2a553ddcf8fab2bef9487c
+
     render(){
 
         var {task,index} = this.props;

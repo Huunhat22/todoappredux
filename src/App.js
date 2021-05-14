@@ -136,30 +136,18 @@ class App extends Component{
     
   }
 
-<<<<<<< HEAD
-  //function onDelete
-  onDelete = (id)=>{
-    var {tasks} = this.state;
-    var index = this.findIndex(id);
-    // console.log(index);
-=======
   //function onDelete Item
   onDelete = (id)=>{
     var {tasks} = this.state;
     var index = this.findIndex(id);
->>>>>>> 1cdfb928f303fc133a2a553ddcf8fab2bef9487c
+
     if (index !== -1) {
       tasks.splice(index,1);
       this.setState({
         tasks : tasks
       });
-<<<<<<< HEAD
+
       localStorage.setItem('tasks',JSON.stringify(tasks));
-    }
-    this.onCloseFrom();
-  }
-  
-=======
     }
     this.onCloseFrom();
     // lưu vào lại localStorage
@@ -183,7 +171,6 @@ class App extends Component{
 
   }
 
->>>>>>> 1cdfb928f303fc133a2a553ddcf8fab2bef9487c
   //tìm ra index của item muốn thay đổi
   findIndex =(id)=>{
     var {tasks} = this.state;
@@ -228,16 +215,12 @@ class App extends Component{
               Generate Data
             </button> */}
             <Taskcontrol></Taskcontrol>
-<<<<<<< HEAD
-            <Tasklist tasksProps = {tasks} reciveID = {this.onUpdateStatus} reciveActionDelete={this.onDelete}></Tasklist>
-=======
             <Tasklist tasksProps = {tasks}
                       reciveID = {this.onUpdateStatus}
                       reciveDeleteID = {this.onDelete}
                       reciveUpdatetID = {this.onUpdate}
             >
             </Tasklist>
->>>>>>> 1cdfb928f303fc133a2a553ddcf8fab2bef9487c
           </div> 
         </div>
       </div>

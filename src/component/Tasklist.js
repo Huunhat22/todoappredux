@@ -9,16 +9,11 @@ class Tasklist extends Component{
         var Elements = tasksProps.map((task, index) => {
             return <Taskitem key = {task.id}
                              index = {index}
-<<<<<<< HEAD
-                             task = {task}
-                             onUpdateStatus = {this.props.reciveID}
-                             onDeleteItem = {this.props.reciveActionDelete}
-=======
                              task = {task} 
                              onUpdateStatus = {this.props.reciveID}
                              onDeleteItem = {this.props.reciveDeleteID}
                              onUpdateItem = {this.props.reciveUpdatetID}
->>>>>>> 1cdfb928f303fc133a2a553ddcf8fab2bef9487c
+
                     />
         });
 
