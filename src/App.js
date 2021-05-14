@@ -98,7 +98,7 @@ class App extends Component{
     
     var {tasks} = this.state;
     var index = this.findIndex(id);
-    console.log(index);
+    // console.log(index);
     if (index !== -1) {
       tasks[index].Status = !tasks[index].Status;
       this.setState({
@@ -109,6 +109,21 @@ class App extends Component{
     
   }
 
+  //function onDelete
+  onDelete = (id)=>{
+    var {tasks} = this.state;
+    var index = this.findIndex(id);
+    // console.log(index);
+    if (index !== -1) {
+      tasks.splice(index,1);
+      this.setState({
+        tasks : tasks
+      });
+      localStorage.setItem('tasks',JSON.stringify(tasks));
+    }
+    this.onCloseFrom();
+  }
+  
   //tìm ra index của item muốn thay đổi
   findIndex =(id)=>{
     var {tasks} = this.state;
@@ -120,6 +135,8 @@ class App extends Component{
     });
     return result;
   }
+
+
 
   render(){
 
@@ -147,7 +164,7 @@ class App extends Component{
               Generate Data
             </button> */}
             <Taskcontrol></Taskcontrol>
-            <Tasklist tasksProps = {tasks} reciveID = {this.onUpdateStatus}></Tasklist>
+            <Tasklist tasksProps = {tasks} reciveID = {this.onUpdateStatus} reciveActionDelete={this.onDelete}></Tasklist>
           </div> 
         </div>
       </div>
