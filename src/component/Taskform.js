@@ -25,26 +25,28 @@ class Taskform extends Component{
 
     //hàm này thực hiện liên tục mỗi khi có props thay đổi, state là giá trị đang có , props là giá trị đang bị thay đổi
     static getDerivedStateFromProps(props, state){
-        if (props.task) {
+        if (props.task) { // trường hợp này taskEditing có dữ liệu (có nghĩa là đang click vào sửa )
             if(props.task.id !== state.id){
                 return {
+                    
                     id : props.task.id,
                     Namework : props.task.Namework,
                     Status : props.task.Status
                 }
+               
             }
-
         }
-        // else{
-        //     if (state.task) {
-        //         console.log('vào đây');
-        //         return {
-        //             id : '',
-        //             Namework : '',
-        //             Status : false
-        //         }
-        //     }
-        // }
+        else{    // trường hợp này taskEditing == Null (có nghĩa là đang click vào sửa sau đó click vào thêm )
+            if (state.id) { // id này là id của item vừa mới click vào sửa
+                return {
+                    id : '',
+                    Namework : '',
+                    Status : false
+                }
+                
+            }
+            // console.log(state.id);
+        }
         // Return null to indicate no change to state.
         return null;
     }

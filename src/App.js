@@ -10,7 +10,13 @@ class App extends Component{
     this.state = {
         tasks : [], //id:bắt buộc và không trùng, name, status
         isDisplayForm: false,
-        taskEditing : null
+        taskEditing : null,
+
+        //Bài 26: để dưới Render gọi được 2 giá trị filter thì mình cần phải tạo state đê app.js nó nhận
+        filter : {
+          name : '',
+          status: -1
+        }
     }
   }
 
@@ -183,12 +189,39 @@ class App extends Component{
     return result;
   }
 
+  //tạo Function onFilter , Bài 26
+  onFilter = (filterName, filterStatus)=>{
+    // ép kiểu sang kiểu Int, có 2 cách : thêm dấu + trước biến cần ép, hoặc dùng parseInt(filterStatus,10)
+    filterStatus = parseInt(filterStatus,10);
 
+    this.setState({
+      filter :{
+        name : filterName.toLowerCase(),
+        status : filterStatus
+      }
+    });
+  }
 
   render(){
 
-    var {tasks,isDisplayForm,taskEditing} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks
-
+    var {tasks,isDisplayForm,taskEditing,filter} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
+    console.log(filter);
+    //Bài 26, xử lý Filter
+    // if (filter) {
+    //   if (filter.name) {
+    //      tasks =  tasks.filter(task => {
+    //        return task.name.toLowerCase().indexOf(filter.name) !== -1;
+    //       });
+    //   }
+    //   tasks = tasks.filter(task =>{
+    //     if (filter.status === -1) {
+    //       return task;
+    //     }else{
+    //       return task.status === (filter.status === 1 ? true : false);
+    //     }
+    //   })
+    // }
+    
     //xử lý : nếu có isDisplayForm == true thì sẽ hiển thị component Taskform , ngược lại thì không
     var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} // xử lý sự kiện onCloseForm
                                                     reciveSubmit = {this.onSubmitForm} // xử lý sự kiện onSubmitForm
@@ -219,6 +252,9 @@ class App extends Component{
                       reciveID = {this.onUpdateStatus}
                       reciveDeleteID = {this.onDelete}
                       reciveUpdatetID = {this.onUpdate}
+                      
+                      //tạo cho Tasklist 1 props , Bài 26
+                      reciveFilter = {this.onFilter}
             >
             </Tasklist>
           </div> 
