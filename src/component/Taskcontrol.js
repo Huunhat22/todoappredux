@@ -6,7 +6,7 @@ class Taskcontrol extends Component{
     render(){
         return(
             <div className="row">
-                <Tasksreach></Tasksreach>
+                <Tasksreach reciveKeyWord = {this.props.reciveKeyWord}></Tasksreach>
                 <Tasksort></Tasksort>
             </div>
         )
