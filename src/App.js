@@ -16,7 +16,8 @@ class App extends Component{
         filter : {
           name : '',
           status: -1
-        }
+        },
+        keyword : ''
     }
   }
 
@@ -202,26 +203,42 @@ class App extends Component{
     });
   }
 
+  //function onSreach . Ham tim kiem tu input , Bai 27
+  onSreach = (keyword)=>{
+   this.setState({
+     keyword : keyword
+   })
+  }
+
   render(){
 
-    var {tasks,isDisplayForm,taskEditing,filter} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
-    console.log(filter);
+    var {tasks,isDisplayForm,taskEditing,filter,keyword} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
+    // console.log(filter);
     //Bài 26, xử lý Filter
-    // if (filter) {
-    //   if (filter.name) {
-    //      tasks =  tasks.filter(task => {
-    //        return task.name.toLowerCase().indexOf(filter.name) !== -1;
-    //       });
-    //   }
-    //   tasks = tasks.filter(task =>{
-    //     if (filter.status === -1) {
-    //       return task;
-    //     }else{
-    //       return task.status === (filter.status === 1 ? true : false);
-    //     }
-    //   })
-    // }
+    if (filter) {
+      if (filter.name) {
+         tasks =  tasks.filter(task => {
+           return task.Namework.toLowerCase().indexOf(filter.name) !== -1;
+          });
+      }
+      tasks = tasks.filter(task =>{
+        if (filter.status === -1) {
+          return task;
+        }else{
+          return task.Status === (filter.status === 1 ? true : false);
+        }
+      })
+    }
     
+
+    //Bai 27, xu ly chuc nang Sreach
+    if (keyword) {
+      tasks =  tasks.filter(task => {
+        return task.Namework.toLowerCase().indexOf(keyword) !== -1;
+       });
+   }
+
+
     //xử lý : nếu có isDisplayForm == true thì sẽ hiển thị component Taskform , ngược lại thì không
     var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} // xử lý sự kiện onCloseForm
                                                     reciveSubmit = {this.onSubmitForm} // xử lý sự kiện onSubmitForm
@@ -247,7 +264,7 @@ class App extends Component{
             {/* <button className="btn btn-danger mb-3" onClick={this.onGenerateData}>
               Generate Data
             </button> */}
-            <Taskcontrol></Taskcontrol>
+            <Taskcontrol reciveKeyWord = {this.onSreach}></Taskcontrol>
             <Tasklist tasksProps = {tasks}
                       reciveID = {this.onUpdateStatus}
                       reciveDeleteID = {this.onDelete}
