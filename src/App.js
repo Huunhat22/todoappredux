@@ -17,7 +17,9 @@ class App extends Component{
           name : '',
           status: -1
         },
-        keyword : ''
+        keyword : '',
+        sortBy : 'name',
+        sortValue : 1
     }
   }
 
@@ -210,9 +212,18 @@ class App extends Component{
    })
   }
 
+  // function onSort , ham sap xep , Bai 28
+  onSort = (sortBy, sortValue) =>{
+    this.setState({
+      sortBy : sortBy,
+      sortValue : sortValue
+    })
+    // console.log(this.state);
+  }
+
   render(){
 
-    var {tasks,isDisplayForm,taskEditing,filter,keyword} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
+    var {tasks,isDisplayForm,taskEditing,filter,keyword,sortBy,sortValue} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
     // console.log(filter);
     //Bài 26, xử lý Filter
     if (filter) {
@@ -238,6 +249,20 @@ class App extends Component{
        });
    }
 
+   //Bai 28 , xy chuc nang sort
+   if (sortBy === 'name') {
+     tasks =  tasks.sort((a,b) =>{
+       if (a.Namework > b.Namework) return sortValue;
+       else if (a.Namework < b.Namework) return -sortValue;
+       else return 0;
+     });
+   }else{
+      tasks =  tasks.sort((a,b) =>{
+        if (a.Status > b.Status) return -sortValue;
+        else if (a.Status < b.Status) return sortValue;
+        else return 0;
+      });
+   }
 
     //xử lý : nếu có isDisplayForm == true thì sẽ hiển thị component Taskform , ngược lại thì không
     var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} // xử lý sự kiện onCloseForm
@@ -264,7 +289,7 @@ class App extends Component{
             {/* <button className="btn btn-danger mb-3" onClick={this.onGenerateData}>
               Generate Data
             </button> */}
-            <Taskcontrol reciveKeyWord = {this.onSreach}></Taskcontrol>
+            <Taskcontrol reciveKeyWord = {this.onSreach} onSort = {this.onSort} sortBy = {sortBy} sortValue = {sortValue}></Taskcontrol>
             <Tasklist tasksProps = {tasks}
                       reciveID = {this.onUpdateStatus}
                       reciveDeleteID = {this.onDelete}
