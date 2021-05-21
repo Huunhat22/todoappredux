@@ -1,6 +1,6 @@
 import React ,{Component} from 'react';
 import Taskitem from './Taskitem';
-
+import { connect } from 'react-redux';
 class Tasklist extends Component{
 
 
@@ -30,14 +30,14 @@ class Tasklist extends Component{
     }
 
     render(){
-
-        var {tasksProps} = this.props; // var tasks = this.props.tasks
+        
+        var {tasks} = this.props; // var tasks = this.props.tasks
 
         // tạo các props từ state trong constructor, Bài 26
         var {filterName,filterStatus} = this.state;
 
 
-        var Elements = tasksProps.map((task, index) => {
+        var Elements = tasks.map((task, index) => {
             return <Taskitem key = {task.id}
                              index = {index}
                              task = {task} 
@@ -86,4 +86,12 @@ class Tasklist extends Component{
     }
 }
 
-export default Tasklist;
+//tạo 1 const để : chuyển các state của store thành các props của component
+const mapStateToProps = (state) =>{
+    return {
+        tasks : state.tasks
+    }
+};
+
+
+export default connect(mapStateToProps,null)(Tasklist);

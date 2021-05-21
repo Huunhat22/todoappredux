@@ -290,7 +290,7 @@ class App extends Component{
               Generate Data
             </button> */}
             <Taskcontrol reciveKeyWord = {this.onSreach} onSort = {this.onSort} sortBy = {sortBy} sortValue = {sortValue}></Taskcontrol>
-            <Tasklist tasksProps = {tasks}
+            <Tasklist //tasksProps = {tasks}
                       reciveID = {this.onUpdateStatus}
                       reciveDeleteID = {this.onDelete}
                       reciveUpdatetID = {this.onUpdate}
