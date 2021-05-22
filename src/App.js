@@ -8,7 +8,7 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-        tasks : [], //id:bắt buộc và không trùng, name, status
+      //  tasks : [], //id:bắt buộc và không trùng, name, status    , qua redux thì mình không sử dụng nữa
         isDisplayForm: false,
         taskEditing : null,
 
@@ -23,15 +23,15 @@ class App extends Component{
     }
   }
 
-  // hàm này được load 1 lần
-  componentDidMount(){
-    if (localStorage && localStorage.getItem('tasks')) {
-        var tasks = JSON.parse(localStorage.getItem('tasks'));
-        this.setState({
-            tasks : tasks
-        })
-    }
-  }
+  // hàm này được load 1 lần,     qua redux thì mình không sử dụng nữa
+  // componentDidMount(){
+  //   if (localStorage && localStorage.getItem('tasks')) {
+  //       var tasks = JSON.parse(localStorage.getItem('tasks'));
+  //       this.setState({
+  //           tasks : tasks
+  //       })
+  //   }
+  // }
 
 
   //tạo function onGenerateData
@@ -67,16 +67,16 @@ class App extends Component{
   // }
 
 
-  //tạo chuỗi random cho ID
-  createRamdom=() =>{
-      return Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
-  }
+  //tạo chuỗi random cho ID  , không sử dụng nữa do dùng Redux
+  // createRamdom=() =>{
+  //     return Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
+  // }
 
-  //Generate ID
-  generateID =()=>{
-    return this.createRamdom() + this.createRamdom() + '-' + this.createRamdom() + '-' + this.createRamdom() + '-'
-           + this.createRamdom() + '-' + this.createRamdom() + '-' + this.createRamdom() + this.createRamdom();
-  }
+  //Generate ID,   không sử dụng nữa do dùng Redux
+  // generateID =()=>{
+  //   return this.createRamdom() + this.createRamdom() + '-' + this.createRamdom() + '-' + this.createRamdom() + '-'
+  //          + this.createRamdom() + '-' + this.createRamdom() + '-' + this.createRamdom() + this.createRamdom();
+  // }
 
   //function onToggleForm
   onToggleForm = () =>{
@@ -109,25 +109,25 @@ class App extends Component{
     })
   }
 
-  //Function onSubmitForm => xử lý sự kiện khi thêm mới 1 công việc
-  onSubmitForm = (data) =>{
-    var {tasks} = this.state;
-    if (data.id === '') {
-      data.id = this.generateID();
-      tasks.push(data);
-    }
-    else{
-      var index = this.findIndex(data.id);
-      tasks[index] = data;
-    }
+  //Function onSubmitForm => xử lý sự kiện khi thêm mới 1 công việc   , không dùng nữa khi sử dụng redux
+  // onSubmitForm = (data) =>{
+  //   var {tasks} = this.state;
+  //   if (data.id === '') {
+  //     data.id = this.generateID();
+  //     tasks.push(data);
+  //   }
+  //   else{
+  //     var index = this.findIndex(data.id);
+  //     tasks[index] = data;
+  //   }
     
-    this.setState({
-      tasks : tasks
-    });
+  //   this.setState({
+  //     tasks : tasks
+  //   });
 
-    localStorage.setItem('tasks',JSON.stringify(tasks));
-    // console.log(data);
-  }
+  //   localStorage.setItem('tasks',JSON.stringify(tasks));
+  //   // console.log(data);
+  // }
 
   //Function onUpdateStatus
   onUpdateStatus =(id) => {
@@ -223,56 +223,61 @@ class App extends Component{
 
   render(){
 
-    var {tasks,isDisplayForm,taskEditing,filter,keyword,sortBy,sortValue} = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
+    var {//tasks, không sử dụng nữa
+          isDisplayForm,
+          taskEditing,
+         // filter,keyword,
+          sortBy,sortValue
+        } = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
     // console.log(filter);
     //Bài 26, xử lý Filter
-    if (filter) {
-      if (filter.name) {
-         tasks =  tasks.filter(task => {
-           return task.Namework.toLowerCase().indexOf(filter.name) !== -1;
-          });
-      }
-      tasks = tasks.filter(task =>{
-        if (filter.status === -1) {
-          return task;
-        }else{
-          return task.Status === (filter.status === 1 ? true : false);
-        }
-      })
-    }
+    // if (filter) {
+    //   if (filter.name) {
+    //      tasks =  tasks.filter(task => {
+    //        return task.Namework.toLowerCase().indexOf(filter.name) !== -1;
+    //       });
+    //   }
+    //   tasks = tasks.filter(task =>{
+    //     if (filter.status === -1) {
+    //       return task;
+    //     }else{
+    //       return task.Status === (filter.status === 1 ? true : false);
+    //     }
+    //   })
+    // }
     
 
     //Bai 27, xu ly chuc nang Sreach
-    if (keyword) {
-      tasks =  tasks.filter(task => {
-        return task.Namework.toLowerCase().indexOf(keyword) !== -1;
-       });
-   }
+  //   if (keyword) {
+  //     tasks =  tasks.filter(task => {
+  //       return task.Namework.toLowerCase().indexOf(keyword) !== -1;
+  //      });
+  //  }
 
    //Bai 28 , xy chuc nang sort
-   if (sortBy === 'name') {
-     tasks =  tasks.sort((a,b) =>{
-       if (a.Namework > b.Namework) return sortValue;
-       else if (a.Namework < b.Namework) return -sortValue;
-       else return 0;
-     });
-   }else{
-      tasks =  tasks.sort((a,b) =>{
-        if (a.Status > b.Status) return -sortValue;
-        else if (a.Status < b.Status) return sortValue;
-        else return 0;
-      });
-   }
+  //  if (sortBy === 'name') {
+  //    tasks =  tasks.sort((a,b) =>{
+  //      if (a.Namework > b.Namework) return sortValue;
+  //      else if (a.Namework < b.Namework) return -sortValue;
+  //      else return 0;
+  //    });
+  //  }else{
+  //     tasks =  tasks.sort((a,b) =>{
+  //       if (a.Status > b.Status) return -sortValue;
+  //       else if (a.Status < b.Status) return sortValue;
+  //       else return 0;
+  //     });
+  //  }
 
     //xử lý : nếu có isDisplayForm == true thì sẽ hiển thị component Taskform , ngược lại thì không
     var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} // xử lý sự kiện onCloseForm
-                                                    reciveSubmit = {this.onSubmitForm} // xử lý sự kiện onSubmitForm
+                                                    // reciveSubmit = {this.onSubmitForm} // xử lý sự kiện onSubmitForm
                                                     task = {taskEditing} /> : ''; 
 
     return (
       <div className="container">
         <div className="row mt-5">
-          <h1 className="text-center">To Do List Application</h1>
+          <h1 className="text-center">To Do List Application Build by React Redux</h1>
         </div>
         <div className= "row mt-5">
           {/* Form create new work */}

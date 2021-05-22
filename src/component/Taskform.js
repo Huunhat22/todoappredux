@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-
+import {connect} from 'react-redux';
+import * as action from '../actions/index';
 class Taskform extends Component{
 
     //create constructor
@@ -74,7 +75,8 @@ class Taskform extends Component{
     //function onSubmit mục đích để truyền 1 props từ component con sang component cha.
     onSubmit = (event) =>{
         event.preventDefault();
-        this.props.reciveSubmit(this.state);
+        // this.props.reciveSubmit(this.state);     không sử dụng dòng này nữa. vì sử dụng redux
+        this.props.onAddTask(this.state);
 
         //sau khi submit thi se goi toi 2 function nay
         this.onClear();
@@ -122,4 +124,18 @@ class Taskform extends Component{
     }
 }
 
-export default Taskform;
+const mapStateToProps = (state) =>{
+    return {
+
+    }
+};
+
+const mapDispatchToProps = (dispatch,props) =>{
+    return{
+        onAddTask : (task) =>{
+            dispatch(action.addTask(task));
+        }
+    }
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Taskform);
