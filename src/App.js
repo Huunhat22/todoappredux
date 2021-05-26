@@ -3,13 +3,15 @@ import './App.css';
 import Taskform from './component/Taskform';
 import Taskcontrol from './component/Taskcontrol';
 import Tasklist from './component/Tasklist';
+import {connect} from 'react-redux';
+import * as action from './actions/index';
 
 class App extends Component{
   constructor(props){
     super(props);
     this.state = {
       //  tasks : [], //id:bắt buộc và không trùng, name, status    , qua redux thì mình không sử dụng nữa
-        isDisplayForm: false,
+        // isDisplayForm: false,                                    , qua redux thì mình không sử dụng nữa
         taskEditing : null,
 
         //Bài 26: để dưới Render gọi được 2 giá trị filter thì mình cần phải tạo state đê app.js nó nhận
@@ -79,22 +81,22 @@ class App extends Component{
   // }
 
   //function onToggleForm
-  onToggleForm = () =>{
+   onToggleForm = () =>{
 
-    //trường hợp, IF click vào sửa (chưa sửa)-> nhấn vào thêm
-    if (this.state.isDisplayForm && this.state.taskEditing !== null) {
-      this.setState({
-        isDisplayForm : true,
-        taskEditing : null
-      });
-    } else {    //trường hợp ngược lại -> khi nhấn vào thêm task
-      this.setState({
-        isDisplayForm : !this.state.isDisplayForm,
-        taskEditing : null    //trường hợp này trả các giá trị trong form về null khi click thêm task
-      });
-    }
-    
-  }
+  //   //trường hợp, IF click vào sửa (chưa sửa)-> nhấn vào thêm
+  //   if (this.state.isDisplayForm && this.state.taskEditing !== null) {
+  //     this.setState({
+  //       isDisplayForm : true,
+  //       taskEditing : null
+  //     });
+  //   } else {    //trường hợp ngược lại -> khi nhấn vào thêm task
+  //     this.setState({
+  //       isDisplayForm : !this.state.isDisplayForm,
+  //       taskEditing : null    //trường hợp này trả các giá trị trong form về null khi click thêm task
+  //     });
+  //   }
+    this.props.onToggleForm();
+   }
 
   onShowForm = ()=>{
     this.setState({
@@ -222,14 +224,17 @@ class App extends Component{
   }
 
   render(){
+    
+    //Sau khi mapStateToProps, thì tạo 1 biến isDisplayForm sẽ không lấy state từ App, mà phải lấy từ Store
+    var {isDisplayForm} = this.props;
 
     var {//tasks, không sử dụng nữa
-          isDisplayForm,
+          // isDisplayForm, không sử dụng khi sang redux
           taskEditing,
          // filter,keyword,
           sortBy,sortValue
         } = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
-    // console.log(filter);
+
     //Bài 26, xử lý Filter
     // if (filter) {
     //   if (filter.name) {
@@ -311,4 +316,19 @@ class App extends Component{
   }
 }
 
-export default App;
+const mapStateToProps  = (state)=>{ // chuyển state trên store thành props trên App component
+  return {
+    isDisplayForm : state.isDisplayForm
+  }
+};
+
+const mapDispatchToProps = (dispatch,props)=>{  
+  return{
+    onToggleForm : () => {
+        dispatch(action.toggleForm());
+    }
+  }
+};
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);

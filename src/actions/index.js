@@ -11,3 +11,9 @@ export const addTask = (task) => {
         task
     }
 };
+
+export const toggleForm = () =>{
+    return{
+        type: types.TOGGLE_FORM,
+    }
+};
