@@ -105,11 +105,11 @@ class App extends Component{
   }
 
   //function onCloseForm
-  onCloseFrom =()=>{
-    this.setState({
-      isDisplayForm : false
-    })
-  }
+  // onCloseFrom =()=>{
+  //   this.setState({
+  //     isDisplayForm : false
+  //   })
+  // }
 
   //Function onSubmitForm => xử lý sự kiện khi thêm mới 1 công việc   , không dùng nữa khi sử dụng redux
   // onSubmitForm = (data) =>{
@@ -275,7 +275,7 @@ class App extends Component{
   //  }
 
     //xử lý : nếu có isDisplayForm == true thì sẽ hiển thị component Taskform , ngược lại thì không
-    var elementTaskform = isDisplayForm ? <Taskform reviceAction = {this.onCloseFrom} // xử lý sự kiện onCloseForm
+    var elementTaskform = isDisplayForm ? <Taskform // reviceAction = {this.onCloseFrom} // xử lý sự kiện onCloseForm
                                                     // reciveSubmit = {this.onSubmitForm} // xử lý sự kiện onSubmitForm
                                                     task = {taskEditing} /> : ''; 
 

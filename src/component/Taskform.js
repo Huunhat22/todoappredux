@@ -54,7 +54,8 @@ class Taskform extends Component{
 
     //function onCloseForm
     onCloseForm=()=>{
-        this.props.reviceAction();
+       // this.props.reviceAction();     KHI CHƯA SỬ DỤNG REACTJS THUẦN
+        this.props.closeForm();     // KHI CHUYỂN SANG REDUX - CHUYỂN THÀNH ACTION THÀNH PROPS 
     }
 
     //Function onChangeAction
@@ -134,6 +135,9 @@ const mapDispatchToProps = (dispatch,props) =>{
     return{
         onAddTask : (task) =>{
             dispatch(action.addTask(task));
+        },
+        closeForm :() =>{
+            dispatch(action.closeForm());
         }
     }
 };
