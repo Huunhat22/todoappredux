@@ -132,20 +132,20 @@ class App extends Component{
   // }
 
   //Function onUpdateStatus
-  onUpdateStatus =(id) => {
+  // onUpdateStatus =(id) => {
     
-    var {tasks} = this.state;
-    var index = this.findIndex(id);
-    // console.log(index);
-    if (index !== -1) {
-      tasks[index].Status = !tasks[index].Status;
-      this.setState({
-        tasks : tasks
-      });
-      localStorage.setItem('tasks',JSON.stringify(tasks));
-    }
+  //   var {tasks} = this.state;
+  //   var index = this.findIndex(id);
+  //   // console.log(index);
+  //   if (index !== -1) {
+  //     tasks[index].Status = !tasks[index].Status;
+  //     this.setState({
+  //       tasks : tasks
+  //     });
+  //     localStorage.setItem('tasks',JSON.stringify(tasks));
+  //   }
     
-  }
+  // }
 
   //function onDelete Item
   onDelete = (id)=>{
@@ -183,16 +183,16 @@ class App extends Component{
   }
 
   //tìm ra index của item muốn thay đổi
-  findIndex =(id)=>{
-    var {tasks} = this.state;
-    var result = -1;
-    tasks.forEach((task,index) =>{
-      if (task.id === id) {
-          result = index;
-      }
-    });
-    return result;
-  }
+  // findIndex =(id)=>{
+  //   var {tasks} = this.state;
+  //   var result = -1;
+  //   tasks.forEach((task,index) =>{
+  //     if (task.id === id) {
+  //         result = index;
+  //     }
+  //   });
+  //   return result;
+  // }
 
   //tạo Function onFilter , Bài 26
   onFilter = (filterName, filterStatus)=>{

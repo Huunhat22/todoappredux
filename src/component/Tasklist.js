@@ -41,7 +41,7 @@ class Tasklist extends Component{
             return <Taskitem key = {task.id}
                              index = {index}
                              task = {task} 
-                             onUpdateStatus = {this.props.reciveID}
+                             //onUpdateStatus = {this.props.reciveID}
                              onDeleteItem = {this.props.reciveDeleteID}
                              onUpdateItem = {this.props.reciveUpdatetID}
 
