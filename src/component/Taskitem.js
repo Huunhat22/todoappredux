@@ -1,10 +1,13 @@
 import React ,{Component} from 'react';
+import {connect} from 'react-redux';
+import * as action from './../actions/index';
 
 class Taskitem extends Component{
 
     //function onUpdateStatus
     onUpdateStatus = ()=>{
-        this.props.onUpdateStatus(this.props.task.id);
+        // this.props.onUpdateStatus(this.props.task.id);   // không sử dụng khi chuyển sang redux
+        this.props.onChangeStatus(this.props.task.id);
         // console.log(this.props.task.id);
     }
 
@@ -46,4 +49,20 @@ class Taskitem extends Component{
     }
 }
 
-export default Taskitem;
+const mapStateToProps = (state) =>{
+    return {
+
+    }
+};
+
+const mapDispatchToProps = (dispatch,props) =>{
+    return{
+        onChangeStatus : (id) =>{
+            dispatch(action.changeStatus(id));
+        },
+
+    }
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(Taskitem);
+

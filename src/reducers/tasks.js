@@ -11,13 +11,27 @@ var generateID =()=>{
          + createRamdom() + '-' + createRamdom() + '-' + createRamdom() + createRamdom();
 }
 
+//Hàm tìm task theo id
+var  findIndex =(tasks,id)=>{
+    
+    var result = -1;
+    tasks.forEach((task,index) =>{
+      if (task.id === id) {
+          result = index;
+      }
+    });
+    return result;
+  }
+
 var data = JSON.parse(localStorage.getItem('tasks'));
 var initialState = data ? data : [];
 
 var myReducer = (state = initialState, action)=>{
     switch(action.type){
+
         case types.LIST_ALL :
             return state;
+
         case  types.ADD_TASK: 
             var newTask = {
                 id : generateID(),
@@ -27,7 +41,22 @@ var myReducer = (state = initialState, action)=>{
             state.push(newTask);
             localStorage.setItem('tasks',JSON.stringify(state));
             return [...state];
-        default : return state;
+
+        case types.CHANGE_STATUS :
+            var id = action.id      // vì id là 1 tham số trong action gởi lên
+            var index = findIndex(state,id);
+            if (index !== -1) {
+                state[index] = {
+                    ...state[index],
+                    Status : !state[index].Status
+                }
+                localStorage.setItem('tasks',JSON.stringify(state));
+            }
+            // console.log(action);
+            return  [...state];         
+
+        default : 
+            return state;
     }
     
 };
