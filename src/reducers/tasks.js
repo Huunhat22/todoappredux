@@ -27,6 +27,8 @@ var data = JSON.parse(localStorage.getItem('tasks'));
 var initialState = data ? data : [];
 
 var myReducer = (state = initialState, action)=>{
+    var id = '';
+    var index = -1;
     switch(action.type){
 
         case types.LIST_ALL :
@@ -43,8 +45,8 @@ var myReducer = (state = initialState, action)=>{
             return [...state];
 
         case types.CHANGE_STATUS :
-            var id = action.id      // vì id là 1 tham số trong action gởi lên
-            var index = findIndex(state,id);
+            id = action.id      // vì id là 1 tham số trong action gởi lên
+            index = findIndex(state,id);
             if (index !== -1) {
                 state[index] = {
                     ...state[index],
@@ -54,7 +56,16 @@ var myReducer = (state = initialState, action)=>{
             }
             // console.log(action);
             return  [...state];         
-
+        
+        case types.DELETE_TASK:
+            id = action.id      // vì id là 1 tham số trong action gởi lên
+            index = findIndex(state,id);
+            if (index !== -1) {
+                state.splice(index,1);
+                localStorage.setItem('tasks',JSON.stringify(state));
+            }
+            return [...state];
+        
         default : 
             return state;
     }

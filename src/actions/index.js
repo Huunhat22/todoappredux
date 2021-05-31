@@ -36,3 +36,17 @@ export const changeStatus = (id) =>{
         id      // id : id
     }
 };
+
+export const deleteTask = (id) =>{
+    return{
+        type: types.DELETE_TASK,
+        id      // id : id
+    }
+};
+
+export const updateTask = (task) =>{
+    return{
+        type: types.DELETE_TASK,
+        task      // id : id
+    }
+};

@@ -148,22 +148,22 @@ class App extends Component{
   // }
 
   //function onDelete Item
-  onDelete = (id)=>{
-    var {tasks} = this.state;
-    var index = this.findIndex(id);
+  // onDelete = (id)=>{
+  //   var {tasks} = this.state;
+  //   var index = this.findIndex(id);
 
-    if (index !== -1) {
-      tasks.splice(index,1);
-      this.setState({
-        tasks : tasks
-      });
+  //   if (index !== -1) {
+  //     tasks.splice(index,1);
+  //     this.setState({
+  //       tasks : tasks
+  //     });
 
-      localStorage.setItem('tasks',JSON.stringify(tasks));
-    }
-    this.onCloseFrom();
+  //     localStorage.setItem('tasks',JSON.stringify(tasks));
+  //   }
+    // this.onCloseFrom();
     // lưu vào lại localStorage
-    localStorage.setItem('tasks',JSON.stringify(tasks));
-  }
+    // localStorage.setItem('tasks',JSON.stringify(tasks));
+  // }
 
   //function onEdit
   onUpdate = (id)=>{
@@ -301,8 +301,8 @@ class App extends Component{
             </button> */}
             <Taskcontrol reciveKeyWord = {this.onSreach} onSort = {this.onSort} sortBy = {sortBy} sortValue = {sortValue}></Taskcontrol>
             <Tasklist //tasksProps = {tasks}
-                      reciveID = {this.onUpdateStatus}
-                      reciveDeleteID = {this.onDelete}
+                      //reciveID = {this.onUpdateStatus}
+                      //reciveDeleteID = {this.onDelete}
                       reciveUpdatetID = {this.onUpdate}
                       
                       //tạo cho Tasklist 1 props , Bài 26

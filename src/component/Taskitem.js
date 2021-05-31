@@ -14,7 +14,9 @@ class Taskitem extends Component{
     //function onDeleteItem
 
     onDeleteItem =() =>{
-        this.props.onDeleteItem(this.props.task.id);
+        // this.props.onDeleteItem(this.props.task.id);     // không sử dụng nữa khi chuyển sang redux
+        this.props.onDeleteTask(this.props.task.id);
+        this.props.closeForm();
     }
     
     //function onUpdateItem
@@ -60,6 +62,12 @@ const mapDispatchToProps = (dispatch,props) =>{
         onChangeStatus : (id) =>{
             dispatch(action.changeStatus(id));
         },
+        onDeleteTask : (id) =>{
+            dispatch(action.deleteTask(id));
+        },
+        closeForm :() =>{
+            dispatch(action.closeForm());
+        }
 
     }
 };
