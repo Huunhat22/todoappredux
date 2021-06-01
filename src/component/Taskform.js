@@ -129,7 +129,8 @@ class Taskform extends Component{
 
 const mapStateToProps = (state) =>{
     return {
-        isDisplayForm : state.isDisplayForm
+        isDisplayForm : state.isDisplayForm,
+        task: state.editingTask
     }
 };
 

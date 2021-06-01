@@ -7,7 +7,7 @@ var myReducer = (state = initialState, action)=>{
         case types.TOGGLE_FORM :
             return !state;
         case types.OPEN_FORM :
-            return !state;
+            return true;
         case types.CLOSE_FORM :
             return !state;
         default : 

@@ -12,7 +12,7 @@ class App extends Component{
     this.state = {
       //  tasks : [], //id:bắt buộc và không trùng, name, status    , qua redux thì mình không sử dụng nữa
         // isDisplayForm: false,                                    , qua redux thì mình không sử dụng nữa
-        taskEditing : null,
+        //taskEditing : null,
 
         //Bài 26: để dưới Render gọi được 2 giá trị filter thì mình cần phải tạo state đê app.js nó nhận
         filter : {
@@ -230,7 +230,7 @@ class App extends Component{
 
     var {//tasks, không sử dụng nữa
           // isDisplayForm, không sử dụng khi sang redux
-          taskEditing,
+          // taskEditing,
          // filter,keyword,
           sortBy,sortValue
         } = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
@@ -288,7 +288,8 @@ class App extends Component{
           {/* Form create new work */}
           <div className={isDisplayForm ? '"col-xs-4 col-sm-4 col-md-4 col-lg-4"' : ''}>
             {/* {elementTaskform} */}
-            <Taskform task = {taskEditing}/>
+            {/* <Taskform task = {taskEditing}/> */}
+            <Taskform/>
           </div>
           
           {/* Action Form */}
