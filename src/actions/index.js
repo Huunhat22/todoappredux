@@ -46,7 +46,7 @@ export const deleteTask = (id) =>{
 
 export const updateTask = (task) =>{
     return{
-        type: types.DELETE_TASK,
+        type: types.UPDATE_TASK,
         task      // id : id
     }
 };

@@ -21,7 +21,9 @@ class Taskitem extends Component{
     
     //function onUpdateItem
     onUpdateItem =()=>{
-        this.props.onUpdateItem(this.props.task.id);
+        // this.props.onUpdateItem(this.props.task.id);
+        this.props.onOpenForm();
+        this.props.onEditTask(this.props.task);
     }
 
 
@@ -67,6 +69,12 @@ const mapDispatchToProps = (dispatch,props) =>{
         },
         closeForm :() =>{
             dispatch(action.closeForm());
+        },
+        onOpenForm :() =>{
+            dispatch(action.openForm());
+        },
+        onEditTask :(task)=>{
+            dispatch(action.updateTask(task));
         }
 
     }

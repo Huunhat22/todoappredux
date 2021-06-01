@@ -94,6 +94,8 @@ class Taskform extends Component{
 
     render(){
         var {id} = this.state;
+
+        if(!this.props.isDisplayForm) return '';
         return(
             /* Col to insert todo */
             <div className="card">
@@ -127,7 +129,7 @@ class Taskform extends Component{
 
 const mapStateToProps = (state) =>{
     return {
-
+        isDisplayForm : state.isDisplayForm
     }
 };
 
