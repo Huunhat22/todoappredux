@@ -9,7 +9,7 @@ var myReducer = (state = initialState, action)=>{
         case types.OPEN_FORM :
             return true;
         case types.CLOSE_FORM :
-            return !state;
+            return false;
         default : 
             return state;
     }

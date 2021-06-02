@@ -87,20 +87,22 @@ class Taskform extends Component{
 
     onClear=() =>{
         this.setState({
+            id : '',
             Namework : '',
             Status : false
-        })
+        });
     }
 
     render(){
-        var {id} = this.state;
-
+        // var {id} = this.state;
+        
         if(!this.props.isDisplayForm) return '';
         return(
             /* Col to insert todo */
             <div className="card">
                 <div className="d-flex justify-content-between card-header">
-                    <h5 className="text-center">{id === '' ? 'Add New Work': 'Update This Work'}</h5>
+                    <h5 className="text-center">{!this.state.id === '' ? 'Add New Work': 'Update This Work'}</h5>
+                    
                     <span onClick={this.onCloseForm}><i className="fas fa-times-circle"></i></span>
                 </div>
                 <div className="card-body">
