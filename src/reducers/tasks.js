@@ -34,22 +34,24 @@ var myReducer = (state = initialState, action)=>{
         case types.LIST_ALL :
             return state;
 
-        case  types.ADD_TASK:   // case này xử lý cho 2 trường hợp : add new task và edit task
-            var task = {
+        case  types.SAVE_TASK:   // case này xử lý cho 2 trường hợp : add new task và edit task
+            var newtask = {
                 id : action.task.id,
                 Namework :  action.task.Namework,
                 Status : action.task.Status === 'true' ? true : false
             };
 
             //trường hợp tạo mới là không có ID
-            if (!task.id) {
-                task.id = generateID();
-                state.push(task);
+            if (!newtask.id) {
+                newtask.id = generateID();
+                state.push(newtask);
             } else {
-                index = findIndex(state,task.id);
-                state[index] = task;
+                index = findIndex(state,newtask.id);
+                console.log(newtask.Namework + newtask.Status);
+                state[index] = newtask;
+                
             }
-        
+            
             localStorage.setItem('tasks',JSON.stringify(state));
             return [...state];
 

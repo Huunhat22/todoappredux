@@ -96,6 +96,11 @@ class App extends Component{
   //     });
   //   }
     this.props.onToggleForm();
+    this.props.onClearTask({
+      id : '',
+      Namework: '',
+      Status : false
+    })
    }
 
   onShowForm = ()=>{
@@ -328,7 +333,10 @@ const mapDispatchToProps = (dispatch,props)=>{
   return{
     onToggleForm : () => {
         dispatch(action.toggleForm());
-    }
+    },
+    onClearTask :(task)=>{
+      dispatch(action.updateTask(task));
+  }
   }
 };
 

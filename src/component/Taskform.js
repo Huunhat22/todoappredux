@@ -15,12 +15,14 @@ class Taskform extends Component{
 
     //tạo 1 component lycrical
     componentDidMount(){
-        if (this.props.task) {
+        if (this.props.task && this.props.task.id !== null) {
             this.setState({
                 id : this.props.task.id,
                 Namework : this.props.task.Namework,
                 Status : this.props.task.Status
             })
+        }else{
+            this.onClear();
         }
     }
 
@@ -38,15 +40,16 @@ class Taskform extends Component{
             }
         }
         else{    // trường hợp này taskEditing == Null (có nghĩa là đang click vào sửa sau đó click vào thêm )
-            if (state.id) { // id này là id của item vừa mới click vào sửa
-                return {
-                    id : '',
-                    Namework : '',
-                    Status : false
-                }
+            // if (state.id) { // id này là id của item vừa mới click vào sửa
+            //     return {
+            //         id : '',
+            //         Namework : '',
+            //         Status : false
+            //     }
                 
-            }
+            // }
             // console.log(state.id);
+            this.onClear();
         }
         // Return null to indicate no change to state.
         return null;
@@ -77,7 +80,7 @@ class Taskform extends Component{
     onSubmit = (event) =>{
         event.preventDefault();
         // this.props.reciveSubmit(this.state);     không sử dụng dòng này nữa. vì sử dụng redux
-        this.props.onAddTask(this.state);
+        this.props.onSaveTask(this.state);
 
         //sau khi submit thi se goi toi 2 function nay
         this.onClear();
@@ -96,12 +99,12 @@ class Taskform extends Component{
     render(){
         // var {id} = this.state;
         
-        if(!this.props.isDisplayForm) return '';
+        if(!this.props.isDisplayForm) return null;
         return(
             /* Col to insert todo */
             <div className="card">
                 <div className="d-flex justify-content-between card-header">
-                    <h5 className="text-center">{!this.state.id === '' ? 'Add New Work': 'Update This Work'}</h5>
+                    <h5 className="text-center">{!this.props.task.id === '' ? 'Add New Work': 'Update This Work'}</h5>
                     
                     <span onClick={this.onCloseForm}><i className="fas fa-times-circle"></i></span>
                 </div>
@@ -138,8 +141,8 @@ const mapStateToProps = (state) =>{
 
 const mapDispatchToProps = (dispatch,props) =>{
     return{
-        onAddTask : (task) =>{
-            dispatch(action.addTask(task));
+        onSaveTask : (task) =>{
+            dispatch(action.saveTask(task));
         },
         closeForm :() =>{
             dispatch(action.closeForm());
