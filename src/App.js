@@ -95,7 +95,13 @@ class App extends Component{
   //       taskEditing : null    //trường hợp này trả các giá trị trong form về null khi click thêm task
   //     });
   //   }
-    this.props.onToggleForm();
+
+    var {itemEditing} = this.props;
+    if (itemEditing && itemEditing.id !== '') {
+      this.props.onOpenForm();
+    } else {
+      this.props.onToggleForm();
+    }
     this.props.onClearTask({
       id : '',
       Namework: '',
@@ -171,21 +177,21 @@ class App extends Component{
   // }
 
   //function onEdit
-  onUpdate = (id)=>{
-    //tìm và lấy ra được item cần chỉnh sửa
-    var {tasks} = this.state;
-    var index = this.findIndex(id);
+  // onUpdate = (id)=>{
+  //   //tìm và lấy ra được item cần chỉnh sửa
+  //   var {tasks} = this.state;
+  //   var index = this.findIndex(id);
 
-    //gán item tìm được vào state Editing
-    var taskEditing = tasks[index];
-    this.setState({
-      taskEditing : taskEditing
-    })
+  //   //gán item tìm được vào state Editing
+  //   var taskEditing = tasks[index];
+  //   this.setState({
+  //     taskEditing : taskEditing
+  //   })
 
-    //this.onShowForm();
-    // console.log(id);
+  //   //this.onShowForm();
+  //   // console.log(id);
 
-  }
+  // }
 
   //tìm ra index của item muốn thay đổi
   // findIndex =(id)=>{
@@ -310,7 +316,7 @@ class App extends Component{
             <Tasklist //tasksProps = {tasks}
                       //reciveID = {this.onUpdateStatus}
                       //reciveDeleteID = {this.onDelete}
-                      reciveUpdatetID = {this.onUpdate}
+                      // reciveUpdatetID = {this.onUpdate}
                       
                       //tạo cho Tasklist 1 props , Bài 26
                       reciveFilter = {this.onFilter}
@@ -325,7 +331,8 @@ class App extends Component{
 
 const mapStateToProps  = (state)=>{ // chuyển state trên store thành props trên App component
   return {
-    isDisplayForm : state.isDisplayForm
+    isDisplayForm : state.isDisplayForm,
+    itemEditing : state.itemEditing
   }
 };
 
@@ -336,7 +343,10 @@ const mapDispatchToProps = (dispatch,props)=>{
     },
     onClearTask :(task)=>{
       dispatch(action.updateTask(task));
-  }
+    },
+    onOpenForm :() =>{
+        dispatch(action.openForm());
+    }
   }
 };
 

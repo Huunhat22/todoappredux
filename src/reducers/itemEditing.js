@@ -3,7 +3,7 @@ import * as types from '../constants/ActionTypes';
 var initialState = {
     id:'',
     Namework :'',
-    status : false
+    Status : false
 };
 
 var myReducer = (state = initialState, action)=>{

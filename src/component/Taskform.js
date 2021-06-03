@@ -15,11 +15,11 @@ class Taskform extends Component{
 
     //tạo 1 component lycrical
     componentDidMount(){
-        if (this.props.task && this.props.task.id !== null) {
+        if (this.props.itemEditing && this.props.itemEditing.id !== null) {
             this.setState({
-                id : this.props.task.id,
-                Namework : this.props.task.Namework,
-                Status : this.props.task.Status
+                id : this.props.itemEditing.id,
+                Namework : this.props.itemEditing.Namework,
+                Status : this.props.itemEditing.Status
             })
         }else{
             this.onClear();
@@ -28,28 +28,25 @@ class Taskform extends Component{
 
     //hàm này thực hiện liên tục mỗi khi có props thay đổi, state là giá trị đang có , props là giá trị đang bị thay đổi
     static getDerivedStateFromProps(props, state){
-        if (props.task) { // trường hợp này taskEditing có dữ liệu (có nghĩa là đang click vào sửa )
-            if(props.task.id !== state.id){
+        if (props.itemEditing) { // trường hợp này taskEditing có dữ liệu (có nghĩa là đang click vào sửa )
+            if(props.itemEditing.id !== state.id){
                 return {
                     
-                    id : props.task.id,
-                    Namework : props.task.Namework,
-                    Status : props.task.Status
+                    id : props.itemEditing.id,
+                    Namework : props.itemEditing.Namework,
+                    Status : props.itemEditing.Status
                 }
                
             }
         }
         else{    // trường hợp này taskEditing == Null (có nghĩa là đang click vào sửa sau đó click vào thêm )
-            // if (state.id) { // id này là id của item vừa mới click vào sửa
-            //     return {
-            //         id : '',
-            //         Namework : '',
-            //         Status : false
-            //     }
-                
-            // }
-            // console.log(state.id);
-            this.onClear();
+            if (state.id) { // id này là id của item vừa mới click vào sửa
+                return {
+                    id : '',
+                    Namework : '',
+                    Status : false
+                }
+            }
         }
         // Return null to indicate no change to state.
         return null;
@@ -72,7 +69,7 @@ class Taskform extends Component{
 
         this.setState({
             [name] : value
-        })
+        });
     }
 
 
@@ -104,7 +101,7 @@ class Taskform extends Component{
             /* Col to insert todo */
             <div className="card">
                 <div className="d-flex justify-content-between card-header">
-                    <h5 className="text-center">{!this.props.task.id === '' ? 'Add New Work': 'Update This Work'}</h5>
+                    <h5 className="text-center">{this.props.itemEditing.id === '' ? 'Add New Work': 'Update This Work'}</h5>
                     
                     <span onClick={this.onCloseForm}><i className="fas fa-times-circle"></i></span>
                 </div>
@@ -135,7 +132,7 @@ class Taskform extends Component{
 const mapStateToProps = (state) =>{
     return {
         isDisplayForm : state.isDisplayForm,
-        task: state.editingTask
+        itemEditing: state.itemEditing
     }
 };
 

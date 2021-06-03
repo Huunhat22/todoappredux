@@ -38,9 +38,8 @@ var myReducer = (state = initialState, action)=>{
             var newtask = {
                 id : action.task.id,
                 Namework :  action.task.Namework,
-                Status : action.task.Status === 'true' ? true : false
+                Status : action.task.Status
             };
-
             //trường hợp tạo mới là không có ID
             if (!newtask.id) {
                 newtask.id = generateID();
