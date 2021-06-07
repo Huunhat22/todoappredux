@@ -312,7 +312,7 @@ class App extends Component{
             {/* <button className="btn btn-danger mb-3" onClick={this.onGenerateData}>
               Generate Data
             </button> */}
-            <Taskcontrol reciveKeyWord = {this.onSreach} onSort = {this.onSort} sortBy = {sortBy} sortValue = {sortValue}></Taskcontrol>
+            <Taskcontrol></Taskcontrol>
             <Tasklist //tasksProps = {tasks}
                       //reciveID = {this.onUpdateStatus}
                       //reciveDeleteID = {this.onDelete}
