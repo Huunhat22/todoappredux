@@ -1,4 +1,7 @@
 import React ,{Component} from 'react';
+import { connect } from 'react-redux';
+import * as action from './../actions/index';
+
 
 class Tasksreach extends Component{
 
@@ -23,8 +26,12 @@ class Tasksreach extends Component{
 
     //function onSreach
     onSreach = ()=>{
-        this.props.reciveKeyWord(this.state.keyword);
+        // this.props.reciveKeyWord(this.state.keyword);        không sử dụng khi chuyển sang redux
         // console.log(this.state.keyword);
+
+        this.props.onSearchTask(this.state.keyword);
+        // console.log(this.state.keyword);
+
     }
 
 
@@ -42,4 +49,20 @@ class Tasksreach extends Component{
     }
 }
 
-export default Tasksreach;
+
+const mapStateToProps = (state) => {
+    return{
+
+    }
+};
+
+const mapDispatchToProps = (dispatch,props )=> {
+    return{
+        onSearchTask : (keyword)=>{
+            dispatch(action.searchTask(keyword));
+        }
+    }
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Tasksreach);
