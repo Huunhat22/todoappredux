@@ -1,6 +1,8 @@
 import React ,{Component} from 'react';
 import Taskitem from './Taskitem';
 import { connect } from 'react-redux';
+import * as action from './../actions/index';
+
 class Tasklist extends Component{
 
 
@@ -20,23 +22,68 @@ class Tasklist extends Component{
         var name = target.name;
         var value = target.value;
         //truyền dữ liệu ra bên ngoài component cha
-        this.props.reciveFilter(
-            name === 'filterName' ? value :this.state.filterName,
-            name === 'filterStatus' ? value : this.state.filterStatus
-        )
+        // this.props.reciveFilter(         // code cũ sử dụng ReactJS thuần
+        //     name === 'filterName' ? value :this.state.filterName,
+        //     name === 'filterStatus' ? value : this.state.filterStatus
+        // )
+
+         this.props.onFilterTable( 
+             {
+                name: name === 'filterName' ? value :this.state.filterName,
+                status: name === 'filterStatus' ? value : this.state.filterStatus
+            }
+         );
         this.setState({
             [name] : value
-        })
+        });
+       
     }
 
     render(){
         
-        var {tasks} = this.props; // var tasks = this.props.tasks
-
+        var {tasks,filterTable,keyword,sort} = this.props; // var tasks = this.props.tasks
+        
         // tạo các props từ state trong constructor, Bài 26
-        var {filterName,filterStatus} = this.state;
+         var {filterName,filterStatus} = this.state; 
 
+        //    Bài 44, xử lý Filter
+        if (filterTable) {
+          if (filterTable.name) {
+             tasks =  tasks.filter(task => {
+               return task.Namework.toLowerCase().indexOf(filterTable.name) !== -1;
+              });
+          }
+          tasks = tasks.filter(task =>{
+            if (filterTable.status === -1) {
+              return task;
+            }else{
+              return task.Status === (filterTable.status === 1 ? true : false);
+            }
+          })
+        }
 
+        //Bai 45, xu ly chuc nang Sreach
+        if (keyword) {
+        tasks =  tasks.filter(task => {
+            return task.Namework.toLowerCase().indexOf(keyword) !== -1;
+            });
+        }
+        
+        //Bai 28 , xy chuc nang sort
+        if (sort.sortBy === 'name') {
+            tasks =  tasks.sort((a,b) =>{
+            if (a.Namework > b.Namework) return sort.sortValue;
+            else if (a.Namework < b.Namework) return -sort.sortValue;
+            else return 0;
+            });
+        }else{
+            tasks =  tasks.sort((a,b) =>{
+                if (a.Status > b.Status) return -sort.sortValue;
+                else if (a.Status < b.Status) return sort.sortValue;
+                else return 0;
+            });
+        }
+        
         var Elements = tasks.map((task, index) => {
             return <Taskitem key = {task.id}
                              index = {index}
@@ -47,6 +94,7 @@ class Tasklist extends Component{
 
                     />
         });
+
 
         return(
             <div className = "row">  
@@ -89,9 +137,20 @@ class Tasklist extends Component{
 //tạo 1 const để : chuyển các state của store thành các props của component
 const mapStateToProps = (state) =>{
     return {
-        tasks : state.tasks
+        tasks : state.tasks,
+        filterTable : state.filterTable,
+        keyword : state.searchTask,
+        sort : state.sortTask
+    }
+};
+
+const mapDispatchToProps = (dispatch,props) =>{
+    return{
+        onFilterTable : (filter) =>{    // filter trên Store là 1 object nên tham số ở đây cũng là object
+            dispatch(action.filterTable(filter));
+        },
     }
 };
 
 
-export default connect(mapStateToProps,null)(Tasklist);
+export default connect(mapStateToProps,mapDispatchToProps)(Tasklist);

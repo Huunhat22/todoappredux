@@ -15,13 +15,13 @@ class App extends Component{
         //taskEditing : null,
 
         //Bài 26: để dưới Render gọi được 2 giá trị filter thì mình cần phải tạo state đê app.js nó nhận
-        filter : {
-          name : '',
-          status: -1
-        },
-        keyword : '',
-        sortBy : 'name',
-        sortValue : 1
+        // filter : {
+        //   name : '',
+        //   status: -1
+        // },
+        // keyword : '',
+        // sortBy : 'name',
+        // sortValue : 1
     }
   }
 
@@ -206,45 +206,45 @@ class App extends Component{
   // }
 
   //tạo Function onFilter , Bài 26
-  onFilter = (filterName, filterStatus)=>{
+  // onFilter = (filterName, filterStatus)=>{
     // ép kiểu sang kiểu Int, có 2 cách : thêm dấu + trước biến cần ép, hoặc dùng parseInt(filterStatus,10)
-    filterStatus = parseInt(filterStatus,10);
+  //   filterStatus = parseInt(filterStatus,10);
 
-    this.setState({
-      filter :{
-        name : filterName.toLowerCase(),
-        status : filterStatus
-      }
-    });
-  }
+  //   this.setState({
+  //     filter :{
+  //       name : filterName.toLowerCase(),
+  //       status : filterStatus
+  //     }
+  //   });
+  // }
 
   //function onSreach . Ham tim kiem tu input , Bai 27
-  onSreach = (keyword)=>{
-   this.setState({
-     keyword : keyword
-   })
-  }
+  // onSreach = (keyword)=>{
+  //  this.setState({
+  //    keyword : keyword
+  //  })
+  // }
 
   // function onSort , ham sap xep , Bai 28
-  onSort = (sortBy, sortValue) =>{
-    this.setState({
-      sortBy : sortBy,
-      sortValue : sortValue
-    })
-    // console.log(this.state);
-  }
+  // onSort = (sortBy, sortValue) =>{
+  //   this.setState({
+  //     sortBy : sortBy,
+  //     sortValue : sortValue
+  //   })
+  //   // console.log(this.state);
+  // }
 
   render(){
     
     //Sau khi mapStateToProps, thì tạo 1 biến isDisplayForm sẽ không lấy state từ App, mà phải lấy từ Store
     var {isDisplayForm} = this.props;
 
-    var {//tasks, không sử dụng nữa
+    //var {//tasks, không sử dụng nữa
           // isDisplayForm, không sử dụng khi sang redux
           // taskEditing,
          // filter,keyword,
-          sortBy,sortValue
-        } = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
+          // sortBy,sortValue
+    //    } = this.state; // đây là cách viết ES6 => var tasks = this.state.tasks, các bài trước và Bài 26
 
     //Bài 26, xử lý Filter
     // if (filter) {
@@ -319,7 +319,7 @@ class App extends Component{
                       // reciveUpdatetID = {this.onUpdate}
                       
                       //tạo cho Tasklist 1 props , Bài 26
-                      reciveFilter = {this.onFilter}
+                      // reciveFilter = {this.onFilter}
             >
             </Tasklist>
           </div> 

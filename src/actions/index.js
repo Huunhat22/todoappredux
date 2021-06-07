@@ -50,3 +50,24 @@ export const updateTask = (task) =>{
         task      // id : id
     }
 };
+
+export const filterTable = (filter) =>{
+    return{
+        type: types.FILTER_TABLE,
+        filter      // filter : filter  => filter.name , filter.status
+    }
+};
+
+export const searchTask = (keyword) =>{
+    return{
+        type: types.SEARCH_TASK,
+        keyword      // keyword : keyword
+    }
+};
+
+export const sortTask = (sort) =>{
+    return{
+        type: types.SORT_TASK,
+        sort      //  sort.by và  sort.value
+    }
+};
