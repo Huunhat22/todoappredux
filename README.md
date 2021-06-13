@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+SỬ DỤNG LỆNH ĐỂ THÊM PACKAGE VÀO PROJECT KHI CLONE SOURCE VỂ MÁY: npm install react-redux
+
 ## Available Scripts
 
 In the project directory, you can run:
